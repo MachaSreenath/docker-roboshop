@@ -1,10 +1,9 @@
-# to run this file, ,--> docker compose up -d <--
 networks:
   default:
-    external: true
-    name: roboshop
+    external:
+      name: roboshop
 volumes:
-  mongodb:
+  mongodb: 
   redis:
   mysql:
   rabbitmq:
@@ -16,7 +15,7 @@ services:
     - source: mongodb
       target: /data/db
       type: volume
-  
+
   catalogue:
     image: catalogue:v1
     container_name: catalogue
@@ -33,7 +32,7 @@ services:
     - cart
     - user
     - shipping
-    - payment 
+    - payment
 
   redis:
     image: redis
@@ -56,7 +55,7 @@ services:
     depends_on:
     - redis
     - catalogue
-  
+
   mysql:
     image: mysql:v1
     container_name: mysql
@@ -72,8 +71,8 @@ services:
     - mysql
 
   rabbitmq:
-    image: rabbitmq
     container_name: rabbitmq
+    image: rabbitmq
     environment:
     - RABBITMQ_DEFAULT_USER=roboshop
     - RABBITMQ_DEFAULT_PASS=roboshop123
@@ -83,9 +82,9 @@ services:
       type: volume
 
   payment:
-    image: payment
-    container_name: payment:v1
+    container_name: payment
+    image: payment:v1
     depends_on:
     - rabbitmq
-    - cart
     - user
+    - cart
