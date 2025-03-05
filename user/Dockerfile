@@ -5,7 +5,9 @@ WORKDIR /opt/server
 ENV MONGO=true
 RUN chown roboshop:roboshop /opt/server
 USER roboshop
-COPY package.json /opt/server
-COPY server.js /opt/server
+COPY package.json /opt/server/
+COPY server.js /opt/server/
 RUN npm install
+RUN echo Hello World
+RUN adduser cart
 CMD ["node", "server.js"]
